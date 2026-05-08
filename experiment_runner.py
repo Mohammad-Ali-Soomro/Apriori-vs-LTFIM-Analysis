@@ -231,7 +231,7 @@ def main():
         runner = ExperimentRunner(dataset_path, dataset_name, min_sup_thresholds)
         
         if runner.load_dataset():
-            results = runner.run_experiments(num_runs=3)
+            results = runner.run_experiments(num_runs=1)
             all_results[dataset_name] = results
             
             output_file = os.path.join(base_path, f"results_{dataset_name.lower()}.json")
