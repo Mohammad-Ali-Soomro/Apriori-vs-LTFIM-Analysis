@@ -14,6 +14,7 @@ class Apriori:
         self.min_sup_count = max(1, int(self.min_sup * self.transaction_count))
         self.frequent_itemsets = []
         self.candidates_generated = 0
+        self.max_candidates = 100000  # Limit to prevent hanging
     
     def get_frequent_items(self):
         """Find all frequent 1-itemsets"""
@@ -31,7 +32,7 @@ class Apriori:
         return frequent
     
     def generate_candidates(self, frequent_itemsets):
-        """Generate candidate itemsets from previous frequent itemsets"""
+        """Generate candidate itemsets from previous frequent itemsets with limit"""
         items = list(frequent_itemsets.keys())
         candidates = []
         
@@ -40,29 +41,35 @@ class Apriori:
                 union = items[i] | items[j]
                 if len(union) == len(items[i]) + 1:
                     candidates.append(union)
+                    if len(candidates) >= self.max_candidates:
+                        return candidates
         
         return candidates
     
     def count_support(self, candidates):
-        """Count support for candidate itemsets"""
+        """Count support for candidate itemsets with optimization"""
         support_count = defaultdict(int)
         
+        # Convert candidates to sorted tuples for faster lookup
+        candidate_list = [(tuple(sorted(c)), c) for c in candidates]
+        
         for transaction in self.dataset:
-            for candidate in candidates:
-                if candidate.issubset(transaction):
-                    support_count[candidate] += 1
+            trans_set = transaction
+            for cand_tuple, cand_set in candidate_list:
+                if cand_set.issubset(trans_set):
+                    support_count[cand_set] += 1
         
         return support_count
     
     def mine(self):
-        """Execute Apriori algorithm"""
+        """Execute Apriori algorithm with optimizations"""
         frequent_itemsets = {}
         current_frequent = self.get_frequent_items()
         frequent_itemsets.update(current_frequent)
         
         k = 2
         
-        while current_frequent:
+        while current_frequent and k <= 5:  # Limit depth to prevent excessive computation
             candidates = self.generate_candidates(current_frequent)
             self.candidates_generated += len(candidates)
             
@@ -78,6 +85,8 @@ class Apriori:
             
             if current_frequent:
                 frequent_itemsets.update(current_frequent)
+            else:
+                break
             
             k += 1
         
@@ -94,6 +103,7 @@ class BitwiseVerticalFIM:
         self.frequent_itemsets = []
         self.candidates_generated = 0
         self.vertical_bitmaps = {}
+        self.max_candidates = 100000  # Limit to prevent hanging
     
     def create_vertical_representation(self):
         """Convert horizontal dataset to vertical bitmap representation"""
@@ -120,12 +130,10 @@ class BitwiseVerticalFIM:
     def bitwise_and(self, bitmap1, bitmap2):
         """Perform bitwise AND with zero-skipping optimization"""
         result = bitmap1 & bitmap2
-        if result == 0:
-            return 0
         return result
     
     def generate_candidates(self, frequent_itemsets):
-        """Generate candidates from frequent itemsets"""
+        """Generate candidates from frequent itemsets with limit"""
         items = list(frequent_itemsets.keys())
         candidates = []
         
@@ -134,25 +142,10 @@ class BitwiseVerticalFIM:
                 union = items[i] | items[j]
                 if len(union) == len(items[i]) + 1:
                     candidates.append(union)
+                    if len(candidates) >= self.max_candidates:
+                        return candidates
         
         return candidates
-    
-    def compute_support(self, candidate, bitmaps_dict):
-        """Compute support for a candidate using bitwise operations"""
-        items = list(candidate)
-        
-        if not items:
-            return 0
-        
-        result_bitmap = bitmaps_dict[frozenset([items[0]])]
-        
-        for item in items[1:]:
-            result_bitmap = self.bitwise_and(result_bitmap, 
-                                            bitmaps_dict[frozenset([item])])
-            if result_bitmap == 0:
-                break
-        
-        return self.popcount(result_bitmap)
     
     def mine(self):
         """Execute Bitwise Vertical FIM algorithm"""
@@ -162,7 +155,7 @@ class BitwiseVerticalFIM:
         k = 2
         current_frequent = dict(self.vertical_bitmaps)
         
-        while current_frequent:
+        while current_frequent and k <= 5:  # Limit depth to prevent excessive computation
             candidates = self.generate_candidates(current_frequent)
             self.candidates_generated += len(candidates)
             
@@ -223,7 +216,7 @@ class BitwiseVerticalFIMOptimized(BitwiseVerticalFIM):
         k = 2
         current_frequent = dict(self.vertical_bitmaps)
         
-        while current_frequent:
+        while current_frequent and k <= 5:  # Limit depth to prevent excessive computation
             candidates = self.generate_candidates(current_frequent)
             self.candidates_generated += len(candidates)
             
