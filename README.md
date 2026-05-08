@@ -119,24 +119,6 @@ Optimized Bitwise Vertical FIM Results:
 Speedup (Apriori / Optimized Bitwise): 15.59x
 ```
 
-## Report (Report.tex)
-
-Complete IEEE double-column format report including:
-- Abstract (150-250 words)
-- Introduction (FIM applications and classical limitations)
-- Literature Review (5+ papers)
-- Algorithms section with pseudocode and complexity analysis
-- Proposed Optimization Strategies
-- Experimental Setup and Results
-- Discussion of findings
-- Conclusion
-- IEEE-formatted References
-
-### Compiling the Report
-1. Use Overleaf (overleaf.com) or local LaTeX installation
-2. Upload Report.tex and compile
-3. Produces professional conference-quality PDF
-
 ## Key Algorithm Features
 
 ### Apriori Algorithm
