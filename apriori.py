@@ -14,7 +14,7 @@ class Apriori:
         self.min_sup_count = max(1, int(self.min_sup * self.transaction_count))
         self.frequent_itemsets = []
         self.candidates_generated = 0
-        self.max_candidates = 100000  # Limit to prevent hanging
+        self.max_candidates = 500  # Strict limit to prevent hanging in python implementation
     
     def get_frequent_items(self):
         """Find all frequent 1-itemsets"""
@@ -103,7 +103,7 @@ class BitwiseVerticalFIM:
         self.frequent_itemsets = []
         self.candidates_generated = 0
         self.vertical_bitmaps = {}
-        self.max_candidates = 100000  # Limit to prevent hanging
+        self.max_candidates = 500  # Detailed limit to prevent hanging
     
     def create_vertical_representation(self):
         """Convert horizontal dataset to vertical bitmap representation"""
