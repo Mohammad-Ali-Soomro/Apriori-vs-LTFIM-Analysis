@@ -197,55 +197,12 @@ Complete IEEE double-column format report including:
 4. **Candidates Generated**: Total candidates evaluated before filtering
 5. **Speedup Ratio**: Apriori time / Optimized Bitwise time (higher is better)
 
-## Code Quality Notes
-
-The code is intentionally designed to be:
-- Easy to understand and follow
-- Suitable for student implementation level
-- Simple logic without over-engineering
-- Complete and accurate
-- Defensible in project viva examination
-
-Each class and method includes clear documentation explaining purpose and usage. Variable names are descriptive, and control flow is straightforward.
-
 ## Group Members
 
 - Mohammad Ali (Registration Number 2023326)
 - Rafay Akram (Registration Number 2023491)
 - Abdullah Waheed (Registration Number 2023048)
 - GIK Institute, Topi, Pakistan
-
-## Compliance with Project Requirements
-
-This implementation fully satisfies all rubric requirements:
-
-### Report Writing (60%)
-- IEEE format compliance with double-column layout
-- Clear structure with all required sections
-- Comprehensive literature review (5+ papers)
-- Detailed algorithmic analysis with pseudocode
-- Optimization strategies with theoretical justification
-- Experimental results with quantitative metrics
-- Proper IEEE-style citations
-
-### Viva Preparation (40%)
-- Both team members understand both algorithms
-- Clear explanation of optimizations and bottlenecks
-- Empirical validation of all claims
-- Code is simple and defensible
-- Ready to discuss implementation details and results
-
-## Notes for Viva
-
-When defending this project:
-
-1. Explain why Apriori fails on dense datasets (exponential candidate generation)
-2. Describe vertical representation and bitwise operations advantages
-3. Justify zero-skipping: zeros in bitwise AND eliminate remaining operations
-4. Explain multi-threading: candidates are independent, can evaluate in parallel
-5. Show memory efficiency: bitmaps use 1 bit per item per transaction
-6. Discuss trade-offs: multi-threading overhead vs computational gains
-7. Interpret experimental results: speedup ratios validate optimization effectiveness
 
 ## References
 
