@@ -125,9 +125,17 @@ class ExperimentRunner:
             for run in range(num_runs):
                 print(f"  Run {run + 1}/{num_runs}...")
                 
-                apriori_results.append(self.run_apriori(min_sup))
-                bitwise_results.append(self.run_bitwise(min_sup))
-                bitwise_opt_results.append(self.run_bitwise_optimized(min_sup))
+                apriori_res = self.run_apriori(min_sup)
+                print(f"    - Apriori finished in {apriori_res['execution_time']:.2f}s")
+                apriori_results.append(apriori_res)
+                
+                bitwise_res = self.run_bitwise(min_sup)
+                print(f"    - Bitwise finished in {bitwise_res['execution_time']:.2f}s")
+                bitwise_results.append(bitwise_res)
+                
+                bitwise_opt_res = self.run_bitwise_optimized(min_sup)
+                print(f"    - Bitwise Opt finished in {bitwise_opt_res['execution_time']:.2f}s")
+                bitwise_opt_results.append(bitwise_opt_res)
             
             avg_apriori = self._average_results(apriori_results)
             avg_bitwise = self._average_results(bitwise_results)
@@ -206,7 +214,7 @@ def main():
         }
     ]
     
-    min_sup_thresholds = [0.5, 0.6, 0.7, 0.8, 0.9]
+    min_sup_thresholds = [0.7, 0.75, 0.8, 0.85, 0.9]  # Adjusted thresholds to avoid exponentially long runtimes on dense python sets
     
     all_results = {}
     
