@@ -1,0 +1,107 @@
+{
+    "0.7": {
+        "apriori": {
+            "execution_time": 2.8352904319763184,
+            "memory_used": 0.859375,
+            "num_itemsets": 779,
+            "num_candidates": 1776
+        },
+        "bitwise": {
+            "execution_time": 0.1637282371520996,
+            "memory_used": 0.296875,
+            "num_itemsets": 669,
+            "num_candidates": 1776
+        },
+        "bitwise_optimized": {
+            "execution_time": 0.938563346862793,
+            "memory_used": 0.09375,
+            "num_itemsets": 669,
+            "num_candidates": 1776
+        },
+        "speedup": 3.020883397432315
+    },
+    "0.75": {
+        "apriori": {
+            "execution_time": 2.4680044651031494,
+            "memory_used": 0.0,
+            "num_itemsets": 671,
+            "num_candidates": 1753
+        },
+        "bitwise": {
+            "execution_time": 0.1558537483215332,
+            "memory_used": 0.10546875,
+            "num_itemsets": 586,
+            "num_candidates": 1753
+        },
+        "bitwise_optimized": {
+            "execution_time": 0.9724037647247314,
+            "memory_used": 0.0390625,
+            "num_itemsets": 586,
+            "num_candidates": 1753
+        },
+        "speedup": 2.538044950701927
+    },
+    "0.8": {
+        "apriori": {
+            "execution_time": 2.3746209144592285,
+            "memory_used": 0.0,
+            "num_itemsets": 591,
+            "num_candidates": 1690
+        },
+        "bitwise": {
+            "execution_time": 0.12448263168334961,
+            "memory_used": 0.0,
+            "num_itemsets": 480,
+            "num_candidates": 1690
+        },
+        "bitwise_optimized": {
+            "execution_time": 0.829925537109375,
+            "memory_used": 0.00390625,
+            "num_itemsets": 480,
+            "num_candidates": 1690
+        },
+        "speedup": 2.8612457482993197
+    },
+    "0.85": {
+        "apriori": {
+            "execution_time": 2.2317795753479004,
+            "memory_used": 0.0,
+            "num_itemsets": 479,
+            "num_candidates": 1620
+        },
+        "bitwise": {
+            "execution_time": 0.2057654857635498,
+            "memory_used": 0.0,
+            "num_itemsets": 429,
+            "num_candidates": 1620
+        },
+        "bitwise_optimized": {
+            "execution_time": 0.7770922183990479,
+            "memory_used": 0.0,
+            "num_itemsets": 429,
+            "num_candidates": 1620
+        },
+        "speedup": 2.8719623263578353
+    },
+    "0.9": {
+        "apriori": {
+            "execution_time": 2.3023111820220947,
+            "memory_used": 0.0,
+            "num_itemsets": 436,
+            "num_candidates": 1578
+        },
+        "bitwise": {
+            "execution_time": 0.11504125595092773,
+            "memory_used": 0.0,
+            "num_itemsets": 311,
+            "num_candidates": 1420
+        },
+        "bitwise_optimized": {
+            "execution_time": 0.6468429565429688,
+            "memory_used": 0.0,
+            "num_itemsets": 311,
+            "num_candidates": 1420
+        },
+        "speedup": 3.5593047102603115
+    }
+}
