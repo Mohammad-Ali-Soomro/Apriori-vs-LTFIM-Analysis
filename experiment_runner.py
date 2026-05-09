@@ -211,6 +211,10 @@ def main():
         {
             'path': os.path.join(base_path, 'connect.dat'),
             'name': 'Connect'
+        },
+        {
+            'path': os.path.join(base_path, 'accidents.dat'),
+            'name': 'Accidents'
         }
     ]
     

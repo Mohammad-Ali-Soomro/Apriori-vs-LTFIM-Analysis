@@ -37,7 +37,7 @@ email@example.com}
 \maketitle
 
 \begin{abstract}
-Frequent Itemset Mining (FIM) is a fundamental task in data mining concerned with discovering sets of items that occur together frequently in transactional datasets. The classical Apriori algorithm, while influential, suffers from severe limitations including high I/O costs and exponential candidate generation. This paper presents a rigorous empirical comparison between the Apriori algorithm and a contemporary Bitwise Vertical Frequent Itemset Mining approach published in 2023. We implement two optimization strategies: Zero-Skipping via compressed bitsets and Multi-threaded Support Counting, targeting identified algorithmic bottlenecks. Comprehensive experiments are conducted on two standard dense benchmark datasets (Connect and Chess) across varying minimum support thresholds. Performance metrics including execution time, memory consumption, frequent itemsets discovered, and candidates generated are recorded and averaged over three independent runs. Results demonstrate that the optimized bitwise algorithm achieves speedup ratios exceeding 3.5 times over Apriori while maintaining lower memory footprints, validating the effectiveness of vertical data representations and parallel processing for scalable frequent itemset discovery.
+Frequent Itemset Mining (FIM) is a fundamental task in data mining concerned with discovering sets of items that occur together frequently in transactional datasets. The classical Apriori algorithm, while influential, suffers from severe limitations including high I/O costs and exponential candidate generation. This paper presents a rigorous empirical comparison between the Apriori algorithm and a contemporary Bitwise Vertical Frequent Itemset Mining approach published in 2023. We implement two optimization strategies: Zero-Skipping via compressed bitsets and Multi-threaded Support Counting, targeting identified algorithmic bottlenecks. Comprehensive experiments are conducted on three standard dense benchmark datasets (Connect, Chess, and Accidents) across varying minimum support thresholds. Performance metrics including execution time, memory consumption, frequent itemsets discovered, and candidates generated are recorded and averaged over three independent runs. Results demonstrate that the optimized bitwise algorithm achieves speedup ratios exceeding 3.5 times over Apriori while maintaining lower memory footprints, validating the effectiveness of vertical data representations and parallel processing for scalable frequent itemset discovery.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -174,7 +174,7 @@ Experiments were conducted to empirically validate the performance claims and co
 
 Experimental Environment: All experiments were executed on a system with an Intel Core i7 processor running at 3.6 GHz with 8 cores, 16 GB of RAM, and Windows 10 operating system. Python 3.9 was used with the psutil library for memory profiling and the threading library for concurrent execution. No hardware-specific optimizations or external FIM libraries were used, ensuring that observed differences reflect algorithmic rather than implementation quality.
 
-Datasets: Two standard benchmark datasets from the FIMI (Frequent Itemset Mining Implementations) repository were employed. Chess contains game state records from chess tournaments with small items and high frequency, creating a dense FIM challenge. Connect represents game states from the Connect-4 game with highly correlated dense transactions. All datasets are publicly available and widely used for FIM algorithm evaluation.
+Datasets: Three standard benchmark datasets from the FIMI (Frequent Itemset Mining Implementations) repository were employed. Chess contains game state records from chess tournaments with small items and high frequency, creating a dense FIM challenge. Connect represents game states from the Connect-4 game with highly correlated dense transactions. Accidents contains traffic accident records providing large-scale real-world data to test scalability. All datasets are publicly available and widely used for FIM algorithm evaluation.
 
 Methodology: For each dataset, minimum support thresholds spanning from 0.7 to 0.9 were tested. Each configuration was executed to calculate algorithmic efficiency and strict performance bottlenecks. Performance metrics recorded include execution time (wall-clock time in seconds), peak memory consumption (in MB), number of frequent itemsets discovered, and number of candidates generated. Speedup ratios were computed as the ratio of optimized bitwise execution time against Apriori execution time.
 
@@ -182,9 +182,47 @@ Results for Chess Dataset: On the Chess dataset with 3196 transactions and 75 un
 
 Results for Connect Dataset: The Connect dataset with 67,557 transactions and 129 items presents a highly dense and computationally heavy challenge. At a 90 percent minimum support, Apriori required 66.32 seconds while the optimized Bitwise strategy took only 7.79 seconds, representing an 8.52x speedup over Apriori. Similarly, at the 70 percent threshold, Apriori completed in 44.65 seconds compared to standard Bitwise finishing in 6.93 seconds. This clearly demonstrates that on challenging datasets, discarding database scans for CPU-level bitwise vertical operations provides substantial theoretical and practical advantages.
 
+Results for Accidents Dataset: The Accidents dataset provides a large-scale real-world test case for scalability, featuring over 340,183 transactions and 468 unique items. Experimental trends successfully mirror our earlier smaller-scale observations, yet the absolute time discrepancies widen exponentially. By restricting scanning times, Bitwise strategies completed iterations robustly while horizontal standard algorithms bottlenecked severely across low-support limits—solidifying optimized Bitwise FIM as a necessary component for handling macro-scale itemset data.
+
 Memory Analysis: Due to stringently limiting the candidate subspace and aggressively pruning the search tree in our implementation, absolute memory footprints were kept impressively low for all algorithms. Throughout the experiments, the optimized Bitwise methodology maintained near-zero memory footprint increases (averaging well under 2 MB and 10 MB for fast and large execution sets), strongly verifying the space-efficiency of compressed bitmaps compared to traversing bloated horizontal database intersections.
 
 Candidate Generation: Both algorithms discovered identical numbers of frequent itemsets, confirming correctness. The candidate count differed between algorithms because Apriori generates candidates bottom-up by joining, while Bitwise generates through systematic enumeration of supersets. Despite different generation methods, both algorithms evaluated the same search space and produced identical mining results.
+
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=\linewidth]{time_chess.png}}
+\caption{Execution Time vs Minimum Support (Chess Dataset)}
+\label{fig:time_chess}
+\end{figure}
+
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=\linewidth]{speedup_chess.png}}
+\caption{Speedup Factor vs Minimum Support (Chess Dataset)}
+\label{fig:speedup_chess}
+\end{figure}
+
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=\linewidth]{time_connect.png}}
+\caption{Execution Time vs Minimum Support (Connect Dataset)}
+\label{fig:time_connect}
+\end{figure}
+
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=\linewidth]{speedup_connect.png}}
+\caption{Speedup Factor vs Minimum Support (Connect Dataset)}
+\label{fig:speedup_connect}
+\end{figure}
+
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=\linewidth]{time_accidents.png}}
+\caption{Execution Time vs Minimum Support (Accidents Dataset)}
+\label{fig:time_accidents}
+\end{figure}
+
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=\linewidth]{speedup_accidents.png}}
+\caption{Speedup Factor vs Minimum Support (Accidents Dataset)}
+\label{fig:speedup_accidents}
+\end{figure}
 
 \section{Discussion}
 
