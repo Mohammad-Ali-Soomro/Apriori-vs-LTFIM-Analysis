@@ -1,4 +1,4 @@
-# Complete Project Summary - CS-478 Semester Project
+# Complete Project Summary - CS-378 Semester Project
 
 ## Project Title
 "Comparison of Apriori Algorithm for Frequent Itemset Mining with State-of-the-Art Bitwise Vertical Algorithms and Optimization Strategies for Improved Performance"
