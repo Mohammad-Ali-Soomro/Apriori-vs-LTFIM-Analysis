@@ -1,4 +1,4 @@
-# CS-478 Design and Analysis of Algorithms Semester Project
+# CS-378 Design and Analysis of Algorithms Semester Project
 
 ## Project Overview
 
