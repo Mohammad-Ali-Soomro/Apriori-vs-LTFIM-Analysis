@@ -1,4 +1,4 @@
-# Final Submission Checklist - CS-478 Project
+# Final Submission Checklist - CS-378 Project
 
 ## Pre-Submission Verification (Do This Now)
 
